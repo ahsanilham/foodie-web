@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foodie - Login</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="login-page">
+        <div class="login-container">
+            <div class="login-header">
+                <img class="logo" src="./assets/logo/LogoFoodie.png" alt="" srcset="">
+                <p class="subtitle">Login to your account</p>
+            </div>
+            
+            <div class="login-form-container">
+                <div class="login-tabs">
+                    <button class="login-tab"  onclick="window.location.href='login_cashier.html'" data-tab="cashier">Cashier</button>
+                    <button class="login-tab active" data-tab="restaurant">Restaurant</button>
+                </div>
+                <form action="./restaurant/index.html" method="get">
+                <div class="login-form hidden" id="cashier-form">
+                    <div class="input-with-icon">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="cashier-username" placeholder="Enter your username">
+                    </div>
+                    
+                    <div class="input-with-icon">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="cashier-password" placeholder="Enter your password">
+                        <i class="fas fa-eye toggle-password"></i>
+                    </div>
+                    
+                    <div class="remember-me">
+                        <input type="checkbox" id="cashier-remember">
+                        <label for="cashier-remember">Remember me</label>
+                    </div>
+                    
+                    <div class="login-error hidden" id="cashier-error">
+                        Invalid username or password. Please try again.
+                    </div>
+                    
+                    <button class="login-button" id="cashier-login-btn">Login as Cashier</button>
+                </div>
+                
+                <div class="login-form" id="restaurant-form">
+                    <div class="select-with-icon">
+                        <i class="fas fa-store"></i>
+                        <select id="restaurant-select">
+                            <option value="">Select restaurant</option>
+                            <option value="1">Bakso Pak Agus</option>
+                            <option value="2">Restoran Bali</option>
+                            <option value="3">Ayam bu Rani</option>
+                            <option value="4">Restoran Pembuat Ayam</option>
+                        </select>
+                    </div>
+                    
+                    <div class="input-with-icon">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="restaurant-username" placeholder="Enter your username">
+                    </div>
+                    
+                    <div class="input-with-icon">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="restaurant-password" placeholder="Enter your password">
+                        <i class="fas fa-eye toggle-password"></i>
+                    </div>
+                    
+                    <div class="remember-me">
+                        <input type="checkbox" id="restaurant-remember">
+                        <label for="restaurant-remember">Remember me</label>
+                    </div>
+                    
+                    <div class="login-error hidden" id="restaurant-error">
+                        Invalid credentials. Please try again.
+                    </div>
+                    
+                    <button class="login-button" id="restaurant-login-btn">Login as Restaurant</button>
+                </div>
+            </div>
+            </form>
+            
+            <div class="back-to-home">
+                <a href="index.html">Back to Home</a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+
