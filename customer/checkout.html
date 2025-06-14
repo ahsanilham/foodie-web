@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foodie - Checkout</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="header-left">
+                <a href="javascript:history.back()" class="back-button">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+                <h1 class="page-title">Checkout</h1>
+            </div>
+            <div class="header-right">
+                <div class="table-info">
+                    <span class="table-label">Table:</span>
+                    <span id="table-id" class="table-id">A1</span>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <main class="checkout-container">
+        <div class="checkout-form">
+            <div class="form-section">
+                <h2>Customer Information</h2>
+                <div class="form-group">
+                    <label for="customer-name">Name</label>
+                    <input type="text" id="customer-name" placeholder="Enter your name" required>
+                </div>
+                <div class="form-group">
+                    <label for="customer-email">Email</label>
+                    <input type="email" id="customer-email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="customer-phone">Phone Number</label>
+                    <input type="tel" id="customer-phone" placeholder="Enter your phone number" required>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <h2>Payment Method</h2>
+                <div class="payment-methods">
+                    <div class="payment-method">
+                        <input type="radio" id="payment-qris" name="payment-method" value="QRIS" checked>
+                        <label for="payment-qris">
+                            <img src="../assets/qris.png" alt="QRIS">
+                            <span>QRIS</span>
+                        </label>
+                    </div>
+                    <div class="payment-method">
+                        <input type="radio" id="payment-gopay" name="payment-method" value="GoPay">
+                        <label for="payment-gopay">
+                            <img src="../assets/gopay.png" alt="GoPay">
+                            <span>GoPay</span>
+                        </label>
+                    </div>
+                    <div class="payment-method">
+                        <input type="radio" id="payment-dana" name="payment-method" value="DANA">
+                        <label for="payment-dana">
+                            <img src="../assets/dana.png" alt="DANA">
+                            <span>DANA</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <h2>Promo Code</h2>
+                <div class="promo-code-input">
+                    <input type="text" id="promo-code" placeholder="Enter promo code">
+                    <button id="apply-promo" class="apply-button">Apply</button>
+                </div>
+                <p id="promo-message" class="promo-message"></p>
+            </div>
+        </div>
+        
+        <div class="order-summary-container">
+            <h2>Order Summary</h2>
+            <div class="summary-items">
+                <p><span id="items-count">0</span> items in cart</p>
+                <a href="cart.html" class="view-cart-link">View cart</a>
+            </div>
+            
+            <div class="summary-line">
+                <span>Subtotal</span>
+                <span id="subtotal">Rp 0</span>
+            </div>
+            <div class="summary-line">
+                <span>Tax (10%)</span>
+                <span id="tax">Rp 0</span>
+            </div>
+            <div class="summary-line discount hidden">
+                <span>Discount</span>
+                <span id="discount">-Rp 0</span>
+            </div>
+            <div class="summary-line total">
+                <span>Total</span>
+                <span id="grand-total">Rp 0</span>
+            </div>
+        </div>
+    </main>
+    
+    <button id="pay-now-button" class="pay-now-button">Pay Now</button>
+    
+    <div id="payment-confirmation-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Confirm Payment</h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>Please review your order details before completing payment:</p>
+                <div class="confirmation-details">
+                    <div class="detail-row">
+                        <strong>Table:</strong> <span id="confirm-table">A1</span>
+                    </div>
+                    <div class="detail-row">
+                        <strong>Items:</strong> <span id="confirm-items-count">0 items</span>
+                    </div>
+                    <div class="detail-row">
+                        <strong>Total Amount:</strong> <span id="confirm-total">Rp 0</span>
+                    </div>
+                    <div class="detail-row">
+                        <strong>Payment Method:</strong> <span id="confirm-payment-method">QRIS</span>
+                    </div>
+                </div>
+                <div class="confirmation-actions">
+                    <button id="cancel-payment" class="cancel-button">Review Order</button>
+                    <button id="confirm-payment" class="confirm-button">Pay Now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="payment-processing-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-body payment-processing">
+                <div class="loading-spinner"></div>
+                <h2>Processing Payment</h2>
+                <p>Please do not close this window...</p>
+            </div>
+        </div>
+    </div>
+    
+    <div id="payment-success-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-body payment-success">
+                <div class="success-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h2>Payment Successful!</h2>
+                <p>Your order has been placed successfully.</p>
+                <div class="order-details">
+                    <div class="detail-row">
+                        <strong>Order ID:</strong> <span id="order-id"></span>
+                    </div>
+                    <div class="detail-row">
+                        <strong>Estimated Delivery:</strong> <span>15-20 minutes</span>
+                    </div>
+                </div>
+                <a href="index.html" class="back-to-home-button">Back to Home</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <a href="index.html" class="bottom-nav-item">
+            <div class="bottom-nav-icon"><i class="fas fa-home"></i></div>
+            <span>Home</span>
+        </a>
+        <a href="#" class="bottom-nav-item">
+            <div class="bottom-nav-icon"><i class="fas fa-search"></i></div>
+            <span>Search</span>
+        </a>
+        <a href="cart.html" class="bottom-nav-item">
+            <div class="bottom-nav-icon">
+                <i class="fas fa-shopping-cart"></i>
+                <span id="nav-cart-count" class="cart-count hidden">0</span>
+            </div>
+            <span>Cart</span>
+        </a>
+        <a href="history.html" class="bottom-nav-item">
+            <div class="bottom-nav-icon"><i class="fas fa-history"></i></div>
+            <span>History</span>
+        </a>
+    </div>
+    
+
+    <script>
+        // Extract parameters from URL
+const params = new URLSearchParams(window.location.search);
+
+// Set table number
+const table = params.get("table");
+if (table) {
+    document.getElementById("table-id").textContent = table;
+    document.getElementById("confirm-table").textContent = table;
+}
+
+// Set order summary values
+const subtotal = params.get("subtotal");
+const tax = params.get("tax");
+const grandTotal = params.get("grandTotal");
+
+document.getElementById("subtotal").textContent = subtotal;
+document.getElementById("tax").textContent = tax;
+document.getElementById("grand-total").textContent = grandTotal;
+document.getElementById("confirm-total").textContent = grandTotal;
+
+// Get item details
+const itemName = params.get("itemName");
+const itemQuantity = params.get("itemQuantity");
+
+// Count items - extract number from the quantity string (e.g., "2x" becomes 2)
+const quantityNumber = parseInt(itemQuantity) || 1;
+document.getElementById("items-count").textContent = quantityNumber;
+document.getElementById("confirm-items-count").textContent = `${quantityNumber} items`;
+
+// Set up payment method selection
+const paymentMethods = document.querySelectorAll('input[name="payment-method"]');
+paymentMethods.forEach(method => {
+    method.addEventListener('change', function() {
+        document.getElementById("confirm-payment-method").textContent = this.value;
+    });
+});
+
+// Set up promo code application
+const applyPromoButton = document.getElementById("apply-promo");
+const promoMessageElement = document.getElementById("promo-message");
+const discountSection = document.querySelector(".discount");
+const discountElement = document.getElementById("discount");
+const grandTotalElement = document.getElementById("grand-total");
+
+applyPromoButton.addEventListener('click', function() {
+    const promoCode = document.getElementById("promo-code").value.trim().toUpperCase();
+    
+    if (promoCode === "FOODIE10") {
+        // Calculate 10% discount
+        const total = parseInt(grandTotal.replace("Rp ", "").replace(".", ""));
+        const discount = Math.round(total * 0.1);
+        const newTotal = total - discount;
+        
+        // Update display
+        discountElement.textContent = `-Rp ${discount}`;
+        grandTotalElement.textContent = `Rp ${newTotal}`;
+        document.getElementById("confirm-total").textContent = `Rp ${newTotal}`;
+        discountSection.classList.remove("hidden");
+        
+        promoMessageElement.textContent = "Promo code applied successfully!";
+        promoMessageElement.style.color = "green";
+    } else {
+        promoMessageElement.textContent = "Invalid promo code.";
+        promoMessageElement.style.color = "red";
+    }
+});
+
+// Set up modal functionality
+const payNowButton = document.getElementById("pay-now-button");
+const confirmationModal = document.getElementById("payment-confirmation-modal");
+const processingModal = document.getElementById("payment-processing-modal");
+const successModal = document.getElementById("payment-success-modal");
+const closeModalButton = document.querySelector(".close-modal");
+const cancelPaymentButton = document.getElementById("cancel-payment");
+const confirmPaymentButton = document.getElementById("confirm-payment");
+
+// Open confirmation modal when Pay Now is clicked
+payNowButton.addEventListener('click', function() {
+    // Basic form validation
+    const customerName = document.getElementById("customer-name").value;
+    const customerEmail = document.getElementById("customer-email").value;
+    const customerPhone = document.getElementById("customer-phone").value;
+    
+    if (!customerName || !customerEmail || !customerPhone) {
+        alert("Please fill in all required fields.");
+        return;
+    }
+    
+    confirmationModal.style.display = "block";
+});
+
+// Close modal when X is clicked
+closeModalButton.addEventListener('click', function() {
+    confirmationModal.style.display = "none";
+});
+
+// Close modal when Review Order is clicked
+cancelPaymentButton.addEventListener('click', function() {
+    confirmationModal.style.display = "none";
+});
+
+// Handle payment confirmation
+confirmPaymentButton.addEventListener('click', function() {
+    // Hide confirmation modal
+    confirmationModal.style.display = "none";
+    
+    // Show processing modal
+    processingModal.style.display = "block";
+    
+    // Generate a random order ID
+    const orderId = "ORD-" + Math.floor(100000 + Math.random() * 900000);
+    document.getElementById("order-id").textContent = orderId;
+    
+    // Simulate processing time (3 seconds)
+    setTimeout(function() {
+        // Hide processing modal
+        processingModal.style.display = "none";
+        
+        // Show success modal
+        successModal.style.display = "block";
+    }, 3000);
+});
+
+// Close modals if clicked outside
+window.addEventListener('click', function(event) {
+    if (event.target === confirmationModal) {
+        confirmationModal.style.display = "none";
+    }
+});
+    </script>
+    <!-- <script src="../js/checkout.js"></script> -->
+</body>
+</html>
+

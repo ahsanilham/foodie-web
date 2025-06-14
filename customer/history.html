@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foodie - Order History</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="header-left">
+                <a href="javascript:history.back()" class="back-button">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+                <h1 class="page-title">Order History</h1>
+            </div>
+            <!-- <div class="header-right">
+                <div class="table-info">
+                    <span class="table-label">Table:</span>
+                    <span id="table-id" class="table-id">A1</span>
+                </div>
+            </div> -->
+        </div>
+    </header>
+    
+    <main class="history-container">
+        <div id="empty-state" class="empty-state">
+            <div class="empty-icon">
+                <i class="fas fa-history"></i>
+            </div>
+            <h2>No Order History</h2>
+            <p>You haven't placed any orders yet.</p>
+            <a href="index.html" class="start-ordering-button">Start Ordering</a>
+        </div>
+        
+        <div id="orders-list" class="orders-list hidden">
+            <!-- Order history will be populated via JavaScript -->
+        </div>
+    </main>
+    
+    <!-- Order Detail Modal -->
+    <div id="order-detail-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Order Details</h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="order-detail-header">
+                    <div class="order-id-date">
+                        <p>Order #<span id="detail-order-id"></span></p>
+                        <p id="detail-order-date"></p>
+                    </div>
+                    <div class="order-status">
+                        <span id="detail-order-status"></span>
+                    </div>
+                </div>
+                
+                <div class="order-items-detail">
+                    <h3>Items Ordered</h3>
+                    <ul id="detail-order-items" class="detail-items-list">
+                        <!-- Order items will be populated via JavaScript -->
+                    </ul>
+                </div>
+                
+                <div class="order-notes">
+                    <h3>Order Notes</h3>
+                    <p id="detail-order-notes"></p>
+                </div>
+                
+                <div class="order-summary-detail">
+                    <h3>Order Summary</h3>
+                    <div class="summary-line">
+                        <span>Subtotal</span>
+                        <span id="detail-subtotal">Rp 0</span>
+                    </div>
+                    <div class="summary-line">
+                        <span>Tax (10%)</span>
+                        <span id="detail-tax">Rp 0</span>
+                    </div>
+                    <div class="summary-line discount hidden">
+                        <span>Discount</span>
+                        <span id="detail-discount">-Rp 0</span>
+                    </div>
+                    <div class="summary-line total">
+                        <span>Total</span>
+                        <span id="detail-total">Rp 0</span>
+                    </div>
+                </div>
+                
+                <div class="order-payment-detail">
+                    <h3>Payment Information</h3>
+                    <div class="detail-row">
+                        <strong>Payment Method:</strong> <span id="detail-payment-method"></span>
+                    </div>
+                    <div class="detail-row">
+                        <strong>Payment Status:</strong> <span id="detail-payment-status"></span>
+                    </div>
+                    <div class="detail-row">
+                        <strong>Payment Time:</strong> <span id="detail-payment-time"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <a href="index.html" class="bottom-nav-item">
+            <div class="bottom-nav-icon"><i class="fas fa-home"></i></div>
+            <span>Home</span>
+        </a>
+        <a href="#" class="bottom-nav-item">
+            <div class="bottom-nav-icon"><i class="fas fa-search"></i></div>
+            <span>Search</span>
+        </a>
+        <a href="cart.html" class="bottom-nav-item">
+            <div class="bottom-nav-icon">
+                <i class="fas fa-shopping-cart"></i>
+                <span id="nav-cart-count" class="cart-count hidden">0</span>
+            </div>
+            <span>Cart</span>
+        </a>
+        <a href="history.html" class="bottom-nav-item active">
+            <div class="bottom-nav-icon"><i class="fas fa-history"></i></div>
+            <span>History</span>
+        </a>
+    </div>
+    
+    <!-- <script src="../js/history.js"></script> -->
+</body>
+</html>
+
