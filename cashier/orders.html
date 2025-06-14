@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Foodie - Cashier Orders</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body class="dashboard-page">
+  <aside class="sidebar">
+      <div class="sidebar-header">
+        <img class="logo" src="../assets/logo/LogoFoodie.png" alt="" srcset="">
+          <p class="role">Cashier</p>
+      </div>
+      
+      <nav class="sidebar-nav">
+          <ul>
+              <li><a href="index.html"><i class="fas fa-home"></i> Dashboard</a></li>
+              <li class="active"><a href="orders.html"><i class="fas fa-clipboard-list"></i> Orders</a></li>
+              <li><a href="transactions.html"><i class="fas fa-receipt"></i> Transactions</a></li>
+              <li><a href="settings.html"><i class="fas fa-cog"></i> Settings</a></li>
+          </ul>
+      </nav>
+      
+      <div class="sidebar-footer">
+          <div class="user-info">
+              <div class="user-avatar">
+                  <i class="fas fa-user"></i>
+              </div>
+              <div class="user-details">
+                  <p id="user-name">Cashier Name</p>
+                  <p id="user-id">ID: CSH001</p>
+              </div>
+          </div>
+          <a href="../login_cashier.html" id="logout-button" class="logout-button"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      </div>
+  </aside>
+  
+  <main class="main-content">
+      <header class="dashboard-header">
+          <div class="header-left">
+              <button id="toggle-sidebar" class="toggle-sidebar">
+                  <i class="fas fa-bars"></i>
+              </button>
+              <h2>Orders</h2>
+          </div>
+          <div class="header-right">
+              <div class="date-time">
+                  <span id="current-date">Date</span>
+                  <span id="current-time">Time</span>
+              </div>
+              <div class="notifications">
+                  <button id="notification-button" class="notification-button">
+                      <i class="fas fa-bell"></i>
+                      <span class="notification-badge">3</span>
+                  </button>
+              </div>
+          </div>
+      </header>
+      
+      <div class="dashboard-container">
+          <div class="orders-filter">
+              <div class="filter-section">
+                  <div class="filter-tabs">
+                      <button class="filter-tab active" data-status="all">All Orders</button>
+                      <button class="filter-tab" data-status="pending">Pending</button>
+                      <button class="filter-tab" data-status="processing">Processing</button>
+                      <button class="filter-tab" data-status="completed">Completed</button>
+                      <button class="filter-tab" data-status="cancelled">Cancelled</button>
+                  </div>
+                  <div class="search-filter">
+                      <input type="text" id="order-search" placeholder="Search by order ID or table...">
+                      <button id="search-button"><i class="fas fa-search"></i></button>
+                  </div>
+              </div>
+              <div class="date-filter">
+                  <label for="date-from">From:</label>
+                  <input type="date" id="date-from">
+                  <label for="date-to">To:</label>
+                  <input type="date" id="date-to">
+                  <button id="filter-button" class="filter-button">Apply Filter</button>
+              </div>
+          </div>
+          
+          <div class="orders-table-container">
+              <table class="orders-table">
+                  <thead>
+                      <tr>
+                          <th>Order ID</th>
+                          <th>Table</th>
+                          <th>Items</th>
+                          <th>Total</th>
+                          <th>Date & Time</th>
+                          <th>Status</th>
+                          <th>Actions</th>
+                      </tr>
+                  </thead>
+                  <tbody id="orders-table-body">
+                      <!-- Orders will be populated via JavaScript -->
+                      <tr>
+                          <td>ORD12345</td>
+                          <td>A1</td>
+                          <td>3 items</td>
+                          <td>Rp 79,200</td>
+                          <td>March 27, 2024 15:35 PM</td>
+                          <td><span class="status-badge pending">Pending</span></td>
+                          <td>
+                              <button class="action-button view-button"><i class="fas fa-eye"></i></button>
+                              <button class="action-button approve-button"><i class="fas fa-check"></i></button>
+                              <button class="action-button reject-button"><i class="fas fa-times"></i></button>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>ORD12346</td>
+                          <td>B2</td>
+                          <td>2 items</td>
+                          <td>Rp 78,000</td>
+                          <td>May 15, 2023 10:45 AM</td>
+                          <td><span class="status-badge processing">Processing</span></td>
+                          <td>
+                              <button class="action-button view-button"><i class="fas fa-eye"></i></button>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>ORD12347</td>
+                          <td>C3</td>
+                          <td>4 items</td>
+                          <td>Rp 156,000</td>
+                          <td>May 15, 2023 11:15 AM</td>
+                          <td><span class="status-badge completed">Completed</span></td>
+                          <td>
+                              <button class="action-button view-button"><i class="fas fa-eye"></i></button>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>ORD12348</td>
+                          <td>D4</td>
+                          <td>1 item</td>
+                          <td>Rp 45,000</td>
+                          <td>May 15, 2023 11:30 AM</td>
+                          <td><span class="status-badge cancelled">Cancelled</span></td>
+                          <td>
+                              <button class="action-button view-button"><i class="fas fa-eye"></i></button>
+                          </td>
+                      </tr>
+                  </tbody>
+              </table>
+          </div>
+          
+          <div class="pagination">
+              <button class="pagination-button" disabled><i class="fas fa-chevron-left"></i></button>
+              <button class="pagination-button active">1</button>
+              <button class="pagination-button">2</button>
+              <button class="pagination-button">3</button>
+              <button class="pagination-button"><i class="fas fa-chevron-right"></i></button>
+          </div>
+      </div>
+  </main>
+  
+  <div id="order-detail-modal" class="modal">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h2>Order Details</h2>
+              <span class="close-modal">&times;</span>
+          </div>
+          <div class="modal-body">
+              <div class="order-detail-header">
+                  <div class="order-id-date">
+                      <p>Order #<span id="detail-order-id"></span></p>
+                      <p id="detail-order-date"></p>
+                  </div>
+                  <div class="order-detail-table">
+                      <p>Table: <span id="detail-table-id"></span></p>
+                  </div>
+                  <div class="order-status">
+                      <span id="detail-order-status"></span>
+                  </div>
+              </div>
+              
+              <div class="customer-detail">
+                  <h3>Customer Information</h3>
+                  <div class="detail-row">
+                      <strong>Name:</strong> <span id="detail-customer-name"></span>
+                  </div>
+                  <div class="detail-row">
+                      <strong>Phone:</strong> <span id="detail-customer-phone"></span>
+                  </div>
+                  <div class="detail-row">
+                      <strong>Email:</strong> <span id="detail-customer-email"></span>
+                  </div>
+              </div>
+              
+              <div class="order-items-detail">
+                  <h3>Items Ordered</h3>
+                  <ul id="detail-order-items" class="detail-items-list">
+                      <!-- Order items will be populated via JavaScript -->
+                  </ul>
+              </div>
+              
+              <div class="order-notes">
+                  <h3>Order Notes</h3>
+                  <p id="detail-order-notes"></p>
+              </div>
+              
+              <div class="order-summary-detail">
+                  <h3>Order Summary</h3>
+                  <div class="summary-line">
+                      <span>Subtotal</span>
+                      <span id="detail-subtotal">Rp 0</span>
+                  </div>
+                  <div class="summary-line">
+                      <span>Tax (10%)</span>
+                      <span id="detail-tax">Rp 0</span>
+                  </div>
+                  <div class="summary-line discount hidden">
+                      <span>Discount</span>
+                      <span id="detail-discount">-Rp 0</span>
+                  </div>
+                  <div class="summary-line total">
+                      <span>Total</span>
+                      <span id="detail-total">Rp 0</span>
+                  </div>
+              </div>
+              
+              <div class="order-payment-detail">
+                  <h3>Payment Information</h3>
+                  <div class="detail-row">
+                      <strong>Payment Method:</strong> <span id="detail-payment-method"></span>
+                  </div>
+                  <div class="detail-row">
+                      <strong>Payment Status:</strong> <span id="detail-payment-status"></span>
+                  </div>
+                  <div class="detail-row">
+                      <strong>Payment Time:</strong> <span id="detail-payment-time"></span>
+                  </div>
+              </div>
+              
+              <div class="order-actions">
+                  <button id="detail-approve-button" class="action-button large approve-button">Approve Order</button>
+                  <button id="detail-reject-button" class="action-button large reject-button">Reject Order</button>
+              </div>
+          </div>
+      </div>
+  </div>
+  
+  <script src="../js/cashier-orders.js"></script>
+
+
+  <script>
+
+
+  </script>
+</body>
+</html>
+
